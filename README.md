@@ -20,7 +20,9 @@
 ## Important notes
 - This project uses plain HTML, CSS and JavaScript. No React, frameworks, or animation libraries.
 - The phone mockup is built with CSS and transforms into the interactive desktop interface while scrolling.
+- Users who prefer reduced motion get a static, accessible version of the interactive phone interface.
 - The contact form currently opens the visitor's email application. It does not store or send messages to a server.
 - Update GitHub and LinkedIn URLs before publishing.
 - The desktop and mobile screen PNGs are self-contained portfolio preview screens shown inside the animated devices; replace them with final screenshots if the design changes.
 - The generated `design-reference.png` is a visual reference, not the website itself.
+- The visual palette uses forest green for structure, sand beige for typography, and electric purple for actions and accents.

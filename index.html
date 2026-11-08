@@ -8,16 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#home"><span class="brand-mark">M</span><span>Mubeen Amir</span></a>
-    <nav class="main-nav" aria-label="Main navigation">
+    <nav class="main-nav" id="main-navigation" aria-label="Main navigation">
       <a href="#home">Home</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
     </nav>
     <a class="header-cta" href="#contact">Let's talk <span>↗</span></a>
-    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="main-navigation" aria-expanded="false">☰</button>
   </header>
 
   <main>
@@ -26,13 +26,13 @@
         <p class="eyebrow"><span class="status-dot"></span> Open to opportunities</p>
         <h1>MUBEEN<br><span>AMIR</span></h1>
         <p class="hero-role">Backend Developer <i>•</i> Java <i>•</i> Spring Boot</p>
-        <p class="hero-description">I build software systems, explore complex problems, and turn ideas into working applications.</p>
+        <p class="hero-description">I design dependable backend systems, from the first data model to the API that makes a product useful.</p>
         <div class="hero-actions"><a class="button button-primary" href="#projects">View my projects <span>→</span></a><a class="button button-ghost" href="#contact">Contact me</a></div>
         <a class="scroll-cue" href="#device-showcase"><span class="mouse-icon"></span> Scroll to explore</a>
       </div>
       <div class="hero-art" aria-hidden="true">
         <div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb-core"></div>
-        <div class="profile-photo-wrap"><img class="profile-photo" src="assets/images/profile.png" alt=""></div>
+        <div class="profile-photo-wrap"><img class="profile-photo" src="assets/images/profile.png" alt="" width="270" height="270" decoding="async"></div>
         <div class="hero-code"><span>JAVA</span><span>SPRING</span><span>SQL</span><span>API</span></div>
       </div>
     </section>
@@ -41,19 +41,19 @@
       <div class="section-heading">
         <p class="eyebrow">THE EXPERIENCE</p>
         <h2>One portfolio.<br><span>Every screen.</span></h2>
-        <p>Scroll to watch the mobile experience unfold into an interactive desktop.</p>
+        <p>A small, interactive preview of how I think about products across devices.</p>
       </div>
       <div class="phone-stage" id="phone-stage">
         <div class="phone-device">
-          <div class="phone-frame"><div class="phone-camera"></div><div class="phone-screens"><img class="phone-screen phone-screen-active" src="assets/images/mobile-screen-1.png" alt="Mobile portfolio home screen"><img class="phone-screen" src="assets/images/mobile-screen-2.png" alt="Mobile portfolio projects screen"><img class="phone-screen" src="assets/images/mobile-screen-3.png" alt="Mobile portfolio contact screen"></div><div class="phone-expanded-interface">
+          <div class="phone-frame"><div class="phone-camera"></div><div class="phone-screens"><img class="phone-screen phone-screen-active" src="assets/images/mobile-screen-1.png" alt="Mobile portfolio home screen" width="600" height="1100" decoding="async"><img class="phone-screen" src="assets/images/mobile-screen-2.png" alt="Mobile portfolio projects screen" width="600" height="1100" loading="lazy" decoding="async"><img class="phone-screen" src="assets/images/mobile-screen-3.png" alt="Mobile portfolio contact screen" width="600" height="1100" loading="lazy" decoding="async"></div><div class="phone-expanded-interface">
             <div class="mini-site">
               <header class="mini-site-header"><strong>M<span>.</span></strong></header>
-              <nav class="mini-site-nav" aria-label="Interactive phone navigation"><button class="mini-tab is-active" data-mini-view="mini-home">Home</button><button class="mini-tab" data-mini-view="mini-projects">Projects</button><button class="mini-tab" data-mini-view="mini-contact">Contact</button></nav>
-              <main class="mini-site-content">
+              <nav class="mini-site-nav" aria-label="Interactive phone navigation" role="tablist"><button class="mini-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="mini-home" data-mini-view="mini-home">Home</button><button class="mini-tab" type="button" role="tab" aria-selected="false" aria-controls="mini-projects" data-mini-view="mini-projects">Projects</button><button class="mini-tab" type="button" role="tab" aria-selected="false" aria-controls="mini-contact" data-mini-view="mini-contact">Contact</button></nav>
+              <div class="mini-site-content">
                 <section class="mini-view is-visible" id="mini-home"><p class="mini-kicker">BACKEND DEVELOPER</p><h3>Mubeen<br><span>Amir.</span></h3><p>I build reliable systems with Java, Spring Boot, and APIs.</p><button class="mini-action" data-mini-view="mini-projects">Explore projects <span>→</span></button></section>
                 <section class="mini-view" id="mini-projects"><p class="mini-kicker">SELECTED WORK</p><h3>Built to<br><span>solve.</span></h3><div class="mini-project-list"></div></section>
                 <section class="mini-view" id="mini-contact"><p class="mini-kicker">GET IN TOUCH</p><h3>Let’s<br><span>connect.</span></h3><p>Have an idea or opportunity? Start a conversation.</p><a class="mini-action" href="mailto:mubeenamir96@gmail.com">Email Mubeen <span>↗</span></a></section>
-              </main>
+              </div>
             </div>
           </div></div>
         </div>
@@ -64,14 +64,14 @@
       <div class="about-art"><div class="about-orbit"></div><div class="about-monogram">M<span>.</span></div><p>BUILD / INNOVATE / GROW</p></div>
       <div class="about-copy">
         <p class="eyebrow">02 / ABOUT ME</p><h2>Curious about<br><span>how systems work.</span></h2>
-        <p>I'm a Computer Science student and backend developer interested in building reliable software systems and understanding the architecture behind them.</p>
-        <p>My work revolves around Java, Spring Boot, databases, APIs, and exploring how complex business processes can be represented through software.</p>
+        <p>I'm a Computer Science student and backend developer who enjoys turning messy requirements into clear, reliable software.</p>
+        <p>Most of my work lives around Java, Spring Boot, databases, and APIs — the parts of a product that make everything else possible.</p>
         <div class="about-facts"><div><strong>BSCS</strong><span>Qarshi University</span></div><div><strong>Backend</strong><span>Primary focus</span></div><div><strong>Lahore</strong><span>Pakistan</span></div></div>
       </div>
     </section>
 
     <section class="projects section" id="projects">
-      <div class="section-intro"><p class="eyebrow">03 / SELECTED WORK</p><h2>Projects & <span>experiments.</span></h2><p>A selection of projects that reflect my interests in backend engineering, systems, and problem-solving.</p></div>
+      <div class="section-intro"><p class="eyebrow">03 / SELECTED WORK</p><h2>Things I've <span>built.</span></h2><p>Projects that show how I approach product thinking, backend engineering, and the details between them.</p></div>
       <div class="project-grid">
         <article class="project-card project-featured"><div class="project-number">01 / FULL-STACK</div><div class="project-visual visual-social"><span>INTERPERSONAL</span><div class="visual-window"><i></i><i></i><i></i><b></b><b></b><b></b></div></div><div class="project-info"><h3>Interpersonal</h3><p>A full-stack social platform with accounts, profiles, posts, feeds, search, and friend management.</p><div class="tags"><span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>React</span></div></div></article>
         <article class="project-card"><div class="project-number">02 / SYSTEM DESIGN</div><div class="project-visual visual-bois"><span>BOIS</span><div class="node-map"><i></i><i></i><i></i><i></i><b></b></div></div><div class="project-info"><h3>BOIS</h3><p>A business operations information system and SaaS concept in development.</p><div class="tags"><span>Architecture</span><span>SaaS</span><span>Systems</span></div></div></article>
@@ -94,7 +94,7 @@
     </section>
 
     <section class="contact section" id="contact">
-      <div class="contact-copy"><p class="eyebrow">06 / GET IN TOUCH</p><h2>Have something<br><span>interesting to build?</span></h2><p>Let's talk about software, engineering, ideas, or opportunities.</p><div class="social-links"><a href="mailto:mubeenamir96@gmail.com">Email ↗</a><a href="https://github.com/MA960?tab=repositories" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/mubeen-amir-42606a183/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div>
+      <div class="contact-copy"><p class="eyebrow">06 / GET IN TOUCH</p><h2>Let's make<br><span>something useful.</span></h2><p>Have an idea, an opportunity, or a problem worth unpacking? I'd like to hear about it.</p><div class="social-links"><a href="mailto:mubeenamir96@gmail.com">Email ↗</a><a href="https://github.com/MA960?tab=repositories" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/mubeen-amir-42606a183/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div>
       <form class="contact-form" id="contact-form">
         <div class="form-row"><label>Name<input name="name" type="text" placeholder="Your name" required></label><label>Email<input name="email" type="email" placeholder="you@example.com" required></label></div>
         <label>Subject<input name="subject" type="text" placeholder="What would you like to discuss?" required></label>
@@ -105,6 +105,6 @@
     </section>
   </main>
   <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">M</span><span>Mubeen Amir</span></a><p>© <span id="year"></span> Mubeen Amir. Built with intention.</p><a href="#home">Back to top ↑</a></footer>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

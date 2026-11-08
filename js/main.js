@@ -1,43 +1,42 @@
 // Vanilla JavaScript only — no frameworks or animation libraries.
-const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".main-nav");
 
-menuToggle.addEventListener("click", () => {
-  const isOpen = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-});
-
-nav.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
+if (menuToggle && nav) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
   });
-});
 
-document.getElementById("year").textContent = new Date().getFullYear();
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+const year = document.getElementById("year");
+if (year) year.textContent = new Date().getFullYear();
 
 // Scroll-linked device transforms. The progress is calculated from each
 // stage's position in the viewport, so scrolling upward reverses the effect.
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const lerp = (start, end, amount) => start + (end - start) * amount;
-
-function getProgress(element) {
-  const rect = element.getBoundingClientRect();
-  const travel = window.innerHeight + rect.height;
-  return clamp((window.innerHeight - rect.top) / travel, 0, 1);
-}
-
-function getFocusedProgress(element) {
-  const rect = element.getBoundingClientRect();
-  const start = window.innerHeight * 0.9;
-  const end = window.innerHeight * 0.05;
-  return clamp((start - rect.top) / (start - end), 0, 1);
-}
+const easeOutBack = (value) => {
+  const c1 = 1.35;
+  const c3 = c1 + 1;
+  return 1 + c3 * (value - 1) ** 3 + c1 * (value - 1) ** 2;
+};
 
 function getPhoneProgress(element) {
   const rect = element.getBoundingClientRect();
   const sectionTop = rect.top + window.scrollY;
+  if (window.innerWidth <= 800) {
+    const mobileStart = window.innerHeight * 0.18;
+    const mobileDistance = Math.max(rect.height - window.innerHeight * 0.42, window.innerHeight * 1.1);
+    return clamp((window.scrollY - sectionTop + mobileStart) / mobileDistance, 0, 1);
+  }
   const startOffset = Math.min(window.innerHeight * 0.62, 620);
   const scrollDistance = Math.max(rect.height - startOffset, window.innerHeight * 0.9);
   return clamp((window.scrollY - sectionTop + startOffset) / scrollDistance, 0, 1);
@@ -68,7 +67,11 @@ if (miniProjectList) {
 }
 
 function showMiniView(viewId) {
-  miniTabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.miniView === viewId));
+  miniTabs.forEach((tab) => {
+    const isActive = tab.dataset.miniView === viewId;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
   miniViews.forEach((view) => view.classList.toggle("is-visible", view.id === viewId));
 }
 
@@ -83,12 +86,17 @@ function updateScrollAnimations() {
     const p = getPhoneProgress(phoneStage);
     const isDesktop = window.innerWidth > 800;
     const desktopWidth = Math.min(1100, Math.max(620, window.innerWidth * 0.76));
-    const rotation = lerp(-90, 0, Math.min(p / 0.7, 1));
+    const rotationProgress = easeOutBack(clamp(p / (isDesktop ? 0.76 : 0.82), 0, 1));
+    const rotation = isDesktop
+      ? lerp(-90, 0, rotationProgress)
+      : lerp(-6, 0, rotationProgress);
     const approachProgress = clamp(p / 0.55, 0, 1);
-    const expandProgress = clamp((p - 0.62) / 0.38, 0, 1);
+    const expandProgress = isDesktop
+      ? clamp((p - 0.62) / 0.38, 0, 1)
+      : clamp((p - 0.72) / 0.28, 0, 1);
     const scale = p < 0.55
-      ? lerp(0.68, 1, approachProgress)
-      : lerp(1, isDesktop ? 1 : 2.2, expandProgress);
+      ? lerp(isDesktop ? 0.68 : 0.82, 1, approachProgress)
+      : lerp(1, 1, expandProgress);
     if (isDesktop) {
       phoneDevice.style.width = `${lerp(260, desktopWidth, expandProgress)}px`;
       phoneDevice.style.height = `${lerp(520, Math.min(620, window.innerHeight * 0.72), expandProgress)}px`;
@@ -97,15 +105,19 @@ function updateScrollAnimations() {
       phoneDevice.style.height = "";
     }
     const y = p < 0.55
-      ? lerp(100, -5, approachProgress)
-      : lerp(-5, isDesktop ? 0 : -30, expandProgress);
+      ? lerp(isDesktop ? 100 : 20, -5, approachProgress)
+      : lerp(-5, 0, expandProgress);
     phoneDevice.style.transform = `translateY(${y}px) rotate(${rotation}deg) scale(${scale})`;
     phoneDevice.style.setProperty("--phone-expand", String(expandProgress));
 
     if (phoneScreens.length) {
-      const screenProgress = clamp((p / 0.55) * phoneScreens.length, 0, phoneScreens.length - 0.001);
+      const screenProgress = isDesktop
+        ? clamp((p / 0.55) * phoneScreens.length, 0, phoneScreens.length - 0.001)
+        : clamp((p / 0.72) * phoneScreens.length, 0, phoneScreens.length - 1);
       const activeIndex = Math.floor(screenProgress);
-      const fadeProgress = screenProgress - activeIndex;
+      const fadeProgress = activeIndex === phoneScreens.length - 1
+        ? 0
+        : screenProgress - activeIndex;
 
       phoneScreens.forEach((screen, index) => {
         let opacity = 0;
@@ -137,7 +149,8 @@ updateScrollAnimations();
 
 // Front-end contact form: opens a pre-filled email draft.
 // Replace the email address if you want to use a different inbox.
-document.getElementById("contact-form").addEventListener("submit", (event) => {
+const contactForm = document.getElementById("contact-form");
+contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
   const name = form.get("name");
